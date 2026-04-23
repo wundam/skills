@@ -1,0 +1,16 @@
+{
+  "name": "wundam-skills",
+  "description": "Personal Claude Code plugin marketplace",
+  "owner": {
+    "name": "Ozan Öke",
+    "url": "https://wundam.com"
+  },
+  "plugins": [
+    {
+      "name": "team-review",
+      "source": "./plugins/team-review",
+      "description": "Assemble a virtual cross-functional team to analyze a request, deep-dive the code, and produce a consensus solution plan.",
+      "version": "1.0.0"
+    }
+  ]
+}

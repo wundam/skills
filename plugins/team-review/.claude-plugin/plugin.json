@@ -1,0 +1,9 @@
+{
+  "name": "team-review",
+  "version": "1.0.0",
+  "description": "Assemble a virtual cross-functional team to analyze a request, deep-dive the code, and produce a consensus solution plan.",
+  "author": {
+    "name": "Ozan Öke"
+  },
+  "license": "MIT"
+}
