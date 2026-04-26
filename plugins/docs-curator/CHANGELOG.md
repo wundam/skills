@@ -4,6 +4,8 @@ All notable changes to this plugin are documented here. Format follows [Keep a C
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-04-27
+
 ### Fixed
 
 - `/docs-curator` slash command no longer infinite-loops. The previous version invoked the Skill tool with name `docs-curator:docs-curator`, which collided with the slash command file (also named `docs-curator`); the slash command now `Read`s `SKILL.md` directly.
