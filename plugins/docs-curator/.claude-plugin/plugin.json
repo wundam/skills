@@ -1,6 +1,6 @@
 {
   "name": "docs-curator",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Audit, reorganize, freshen, and generate project documentation. Triggers on Stop with a smart gate; manual /docs-curator command also available.",
   "author": {
     "name": "Ozan Öke"
