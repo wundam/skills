@@ -46,7 +46,7 @@ On first use in a project the skill runs deep analysis (reads READMEs, manifests
 
 Full docs: [`plugins/team-review/README.md`](plugins/team-review/README.md) and [`plugins/team-review/skills/team-review/SKILL.md`](plugins/team-review/skills/team-review/SKILL.md).
 
-### `docs-curator` — v0.1.0
+### `docs-curator` — v0.1.1
 
 Audit, reorganize, freshen, and generate project documentation. A Stop hook with a smart gate fires only when relevant changes occur; a `/docs-curator` slash command runs audits on demand.
 
