@@ -4,6 +4,14 @@ All notable changes to this plugin are documented here. Format follows [Keep a C
 
 ## [Unreleased]
 
+### Fixed
+
+- `/docs-curator` slash command no longer infinite-loops. The previous version invoked the Skill tool with name `docs-curator:docs-curator`, which collided with the slash command file (also named `docs-curator`); the slash command now `Read`s `SKILL.md` directly.
+
+### Added
+
+- Clean-audit confirmation message: when an audit completes with zero findings (incremental or full mode), the skill emits a one-line positive confirmation instead of empty section headers.
+
 ## [0.1.0] - 2026-04-26
 
 ### Added
