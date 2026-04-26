@@ -4,6 +4,8 @@ All notable changes to this plugin are documented here. Format follows [Keep a C
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-04-26
+
 ### Added
 
 - Initial release: Stop hook + skill + slash command for documentation curation.
