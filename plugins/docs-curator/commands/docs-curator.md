@@ -5,21 +5,22 @@ argument-hint: [full|init|state|reset]
 
 # /docs-curator
 
-You are running the `docs-curator` slash command. Load the skill and execute it.
+The user invoked `/docs-curator` with arguments: `$ARGUMENTS`.
 
-## Argument handling
+## Validate the subcommand
 
-The user may provide one of these subcommands as `$ARGUMENTS`:
+Valid `$ARGUMENTS` values:
 
-- `(empty)` — run a standard audit (incremental mode, baseline-aware)
+- `(empty)` — standard audit (incremental mode, baseline-aware)
 - `full` — full re-audit, ignore baseline
 - `init` — copy `.claude/docs-policy.md` template if missing
 - `state` — show current `.claude/docs-state.json` (or "not initialized")
 - `reset` — delete state, re-run audit from first-run mode
 
-## Steps
+If `$ARGUMENTS` is anything else, tell the user the valid subcommands and stop.
 
-1. Use the Skill tool to invoke `docs-curator:docs-curator` with the subcommand passed in `$ARGUMENTS`.
-2. The skill handles all behavior; this command is just the user-facing entry point.
+## Run the audit
 
-If `$ARGUMENTS` contains anything not in the list above, tell the user the valid subcommands and stop.
+Read the skill file at `${CLAUDE_PLUGIN_ROOT}/skills/docs-curator/SKILL.md` using the `Read` tool, then follow its instructions, treating `$ARGUMENTS` as the subcommand input.
+
+**Do not invoke the Skill tool with name `docs-curator:docs-curator`.** The plugin name and skill name match, so name resolution can pick up this slash command and re-invoke it, creating an infinite loop. Always load `SKILL.md` directly via `Read`.
