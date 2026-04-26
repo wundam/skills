@@ -1,0 +1,33 @@
+# docs-curator policy override
+
+This file overrides the default rules from `docs-curator`. Only sections present here are merged; missing sections inherit defaults. Lists are additive (extend defaults), except `disabled_rules` which removes rules.
+
+## allowed_root_files
+
+Add custom files allowed at the project root (in addition to defaults):
+
+- HACKING.md
+
+## sanctioned_folders
+
+Add custom sanctioned folders (in addition to defaults):
+
+- docs/research/
+
+## blacklist_additions
+
+Add stems to the strict blacklist:
+
+- WORKLOG
+
+## disabled_rules
+
+Disable specific rules. Valid names: root_blacklist, ad_hoc_subfolder_readme, multi_readme_same_level, duplicate_content, stale_code_reference, stale_untouched_doc, missing_required_for_type, generation_candidate.
+
+- ad_hoc_subfolder_readme
+
+## stale_window
+
+Override the default 10-commit window:
+
+20
