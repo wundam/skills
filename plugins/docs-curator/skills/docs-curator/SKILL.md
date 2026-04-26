@@ -60,7 +60,11 @@ Apply expectations from `references/project-types.md`.
 
 ### Step 4: Inventory
 
-1. List markdown files: `git ls-files '*.md' '*.MD'` plus working-tree additions from `git status -s`.
+1. List markdown files (scope depends on the mode chosen in Step 2):
+   - **First-run mode or full mode:** `git ls-files '*.md' '*.MD'`.
+   - **Incremental mode:** `git diff --name-only "$LAST_AUDIT_HEAD..HEAD" -- '*.md' '*.MD'`.
+
+   In all modes, also include working-tree additions/modifications by adding `*.md` / `*.MD` paths from `git status -s`.
 2. Skip ignored folders: `.claude/`, `.github/`, `.cursor/`, `node_modules/`, `vendor/`.
 3. For each file, classify:
    - **ALLOWED** — root file in whitelist, or file in sanctioned folder
