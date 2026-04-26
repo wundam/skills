@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "project_type": "claude-marketplace",
+  "last_audit_at": "2026-04-26T20:40:49Z",
+  "last_audit_state_hash": "fcc5c898ba6b88f3c5ccdb09b81ac8802bb428a1083930a9f7cb8fdb3b298ece",
+  "last_audit_head": "e8d01c5f541c68490fbe6e870772c5fe4f2407fe",
+  "baseline_set": true,
+  "memory": {
+    "specific": [
+      "CONTRIBUTING.md",
+      "README.md",
+      "docs/superpowers/plans/2026-04-26-docs-curator.md",
+      "docs/superpowers/specs/2026-04-26-docs-curator-design.md",
+      "plugins/docs-curator/CHANGELOG.md",
+      "plugins/docs-curator/README.md",
+      "plugins/docs-curator/commands/docs-curator.md",
+      "plugins/docs-curator/skills/docs-curator/SKILL.md",
+      "plugins/docs-curator/skills/docs-curator/references/default-policy.md",
+      "plugins/docs-curator/skills/docs-curator/references/findings-format.md",
+      "plugins/docs-curator/skills/docs-curator/references/first-run.md",
+      "plugins/docs-curator/skills/docs-curator/references/generation.md",
+      "plugins/docs-curator/skills/docs-curator/references/project-types.md",
+      "plugins/docs-curator/skills/docs-curator/references/risk-tiers.md",
+      "plugins/docs-curator/skills/docs-curator/references/type-rules.md",
+      "plugins/team-review/CHANGELOG.md",
+      "plugins/team-review/README.md",
+      "plugins/team-review/commands/team-review.md",
+      "plugins/team-review/skills/team-review/SKILL.md",
+      "plugins/team-review/skills/team-review/references/advanced-mode.md",
+      "plugins/team-review/skills/team-review/references/basic-mode.md",
+      "plugins/team-review/skills/team-review/references/deep-analysis.md",
+      "plugins/team-review/skills/team-review/references/edge-cases.md",
+      "plugins/team-review/skills/team-review/references/lifecycle.md",
+      "plugins/team-review/skills/team-review/references/role-catalog.md",
+      "plugins/team-review/skills/team-review/references/schemas.md"
+    ],
+    "pattern": [],
+    "rule_disabled": []
+  },
+  "pending_consolidations": []
+}
