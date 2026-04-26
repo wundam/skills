@@ -67,9 +67,10 @@ Apply expectations from `references/project-types.md`.
    In all modes, also include working-tree additions/modifications by adding `*.md` / `*.MD` paths from `git status -s`.
 2. Skip ignored folders: `.claude/`, `.github/`, `.cursor/`, `node_modules/`, `vendor/`.
 3. For each file, classify:
-   - **ALLOWED** — root file in whitelist, or file in sanctioned folder
-   - **FLAGGED** — root non-whitelist, or matches blacklist anywhere
+   - **ALLOWED** — root file in whitelist, or file in sanctioned folder, or file at the root of a sub-project (see SUB-PROJECT below).
+   - **FLAGGED** — root non-whitelist, or matches blacklist anywhere.
    - **SANCTIONED** — inside `docs/`, `docs/adr/`, etc.
+   - **SUB-PROJECT** — file at the root of an inner project. When project type is `claude-marketplace`, each `plugins/<X>/` is a sub-project: its root files are evaluated against the same whitelist used for the top-level root, and its own type expectations come from `references/project-types.md` (`claude-plugin` rules apply per-plugin). For other top-level project types, no sub-project nesting is currently defined.
 
 ### Step 5: Build findings
 
