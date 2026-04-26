@@ -85,34 +85,36 @@ fi
 
 # --- Trigger condition (c): new folder with ≥3 source files, no README at any level above.
 # (Cheap heuristic: look for folders introduced since last_head.)
+# Uses awk for per-directory counting instead of associative arrays (bash 3.2 ships no `declare -A`).
 if [ -n "$LAST_HEAD" ] && [ "$LAST_HEAD" != "$HEAD_OID" ] && [ "$HEAD_OID" != "no-head" ]; then
   if git cat-file -e "$LAST_HEAD" 2>/dev/null; then
     NEW_FILES=$(git diff --name-only --diff-filter=A "$LAST_HEAD..$HEAD_OID" 2>/dev/null || true)
-    # Group by top-level directory
-    declare -A DIR_COUNT=()
-    while IFS= read -r f; do
-      [ -z "$f" ] && continue
-      dir=$(dirname "$f")
-      [ "$dir" = "." ] && continue
-      DIR_COUNT["$dir"]=$(( ${DIR_COUNT["$dir"]:-0} + 1 ))
-    done <<< "$NEW_FILES"
-    for dir in "${!DIR_COUNT[@]}"; do
-      if [ "${DIR_COUNT[$dir]}" -ge 3 ]; then
-        # Walk up checking for README
-        d="$dir"
-        has_readme=0
-        while [ "$d" != "." ] && [ "$d" != "/" ]; do
-          if [ -f "$d/README.md" ] || [ -f "$d/README" ]; then
-            has_readme=1
-            break
-          fi
-          d=$(dirname "$d")
-        done
-        if [ "$has_readme" -eq 0 ] && [ ! -f "README.md" ]; then
-          emit_reminder "new folder $dir without README"
+    DIRS_WITH_3PLUS=$(printf '%s\n' "$NEW_FILES" | awk -F/ '
+      NF > 1 {
+        dir = $1
+        for (i = 2; i < NF; i++) dir = dir "/" $i
+        counts[dir]++
+      }
+      END {
+        for (d in counts) if (counts[d] >= 3) print d
+      }
+    ')
+    while IFS= read -r dir; do
+      [ -z "$dir" ] && continue
+      # Walk up checking for README
+      d="$dir"
+      has_readme=0
+      while [ "$d" != "." ] && [ "$d" != "/" ]; do
+        if [ -f "$d/README.md" ] || [ -f "$d/README" ]; then
+          has_readme=1
+          break
         fi
+        d=$(dirname "$d")
+      done
+      if [ "$has_readme" -eq 0 ] && [ ! -f "README.md" ]; then
+        emit_reminder "new folder $dir without README"
       fi
-    done
+    done <<< "$DIRS_WITH_3PLUS"
   fi
 fi
 
