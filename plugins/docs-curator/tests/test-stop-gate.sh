@@ -181,6 +181,49 @@ test_silent_when_not_in_git_repo() {
   rm -rf "$FIXTURE_DIR"
 }
 
+test_emits_via_new_folder_no_readme_root() {
+  # Exercises trigger (c): a new folder with 3+ source files when no README exists
+  # at any level above. Custom fixture omits the root README so (c) can fire, and
+  # includes a doc change so trigger (b) is bypassed before (c) is reached.
+  CURRENT_TEST="emits_via_new_folder_no_readme_root"
+  FIXTURE_DIR=$(mktemp -d)
+  cd "$FIXTURE_DIR"
+  git init -q -b main
+  git config user.email "test@example.com"
+  git config user.name "Test User"
+  mkdir -p .claude
+  echo "main code" > main.go
+  git add -A
+  git commit -qm "init"
+
+  local old_head
+  old_head=$(git rev-parse HEAD)
+  local clean_hash
+  clean_hash=$(printf '%s\n%s\n' "$(git status -s)" "$old_head" | shasum -a 256 | awk '{print $1}')
+  write_state "$clean_hash" "$old_head"
+
+  mkdir -p src/lib docs
+  echo "a" > src/lib/a.go
+  echo "b" > src/lib/b.go
+  echo "c" > src/lib/c.go
+  echo "doc" > docs/intro.md
+  git add -A
+  git commit -qm "add src/lib + docs/intro"
+
+  local output code
+  output=$(bash "$HOOK_SCRIPT" 2>&1) || true
+  code=$?
+  assert_emits_reminder "$output" "$code"
+  # Defensive: catch shell error pollution (e.g., bash 3.2 hitting `declare -A`).
+  if [[ "$output" == *"declare:"* ]] || [[ "$output" == *"invalid option"* ]]; then
+    FAIL=$((FAIL+1))
+    echo "  FAIL [$CURRENT_TEST]: output contains shell error noise"
+    echo "    output: $output"
+  fi
+  cd /
+  rm -rf "$FIXTURE_DIR"
+}
+
 # --- runner ---------------------------------------------------------------
 
 run() {
@@ -191,6 +234,7 @@ run() {
   test_silent_when_only_sanctioned_folders_changed
   test_emits_when_head_advanced_with_code_change
   test_silent_when_not_in_git_repo
+  test_emits_via_new_folder_no_readme_root
 }
 
 run
