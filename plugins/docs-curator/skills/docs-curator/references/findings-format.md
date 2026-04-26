@@ -46,6 +46,18 @@ Approve?
 - For mid/high: do not show the diff/plan in the report itself; promise it ("diff to follow") and present per-item during apply.
 - After listing actions, always show the approval menu verbatim.
 
+## Clean audit (zero findings)
+
+If after Step 6 (memory filter) every category is empty, do not emit empty section headers and a hanging approval menu — that's confusing UX. Emit a single-line positive confirmation instead so the user knows the audit ran:
+
+```
+docs-curator: ✓ Clean audit — <project_type>, <mode> mode. <count> files inventoried, 0 findings.
+```
+
+Then proceed directly to Step 8 to refresh `last_audit_at`, `last_audit_state_hash`, and `last_audit_head` in `.claude/docs-state.json` — there are no actions to apply, but the bookkeeping update keeps the next incremental audit accurate.
+
+For first-run mode with zero critical findings, use the baseline-establishment template in `references/first-run.md` instead — it's already a clean-audit confirmation tailored to that case.
+
 ## Approval handling
 
 - `all` → apply all listed actions; for mid/high, prompt with diff/plan one at a time.
