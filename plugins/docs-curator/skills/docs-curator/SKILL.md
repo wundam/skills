@@ -139,7 +139,7 @@ After all actions:
 
 ## Subcommand handling
 
-- `full` — Skip first-run-mode shortcut. Ignore baseline. Audit every file.
+- `full` — Skip first-run-mode shortcut. Audit every file with all rules enabled (no first-run rule suppressions). `memory.specific`, `memory.pattern`, and `memory.rule_disabled` still apply, so baselined files remain suppressed; use `/docs-curator reset` to clear baseline.
 - `init` — Copy `templates/docs-policy.md.tmpl` to `.claude/docs-policy.md` if missing. Do not run audit.
 - `state` — Read and pretty-print `.claude/docs-state.json` (or report missing).
 - `reset` — Delete `.claude/docs-state.json` and re-run audit from first-run mode.

@@ -35,7 +35,9 @@ A fresh install into a project with 50+ markdown files would otherwise produce a
 
 ## Future audits
 
-After first run, all subsequent audits run incrementally (only changed files since `last_audit_head`). The baseline established on first run persists in `memory.specific` until the user runs `/docs-curator reset`.
+After first run, all subsequent audits run incrementally (only changed files since `last_audit_head`).
+
+**Baseline is sticky.** The paths added to `memory.specific` during first run are suppressed from *all* rule checks (duplicate detection, stale detection, etc.) — even if those files later change. This is by design: "accepted as-is" means accepted, not "accepted until next edit". To re-evaluate a single baselined file, remove its path from `memory.specific` in `.claude/docs-state.json` and run `/docs-curator`. To wipe baseline entirely and treat the project as fresh, run `/docs-curator reset`. `/docs-curator full` lifts the first-run *rule suppressions* (so duplicate/stale/generation rules run) but it still respects `memory.specific`, so already-baselined files stay suppressed.
 
 ## Edge cases
 

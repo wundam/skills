@@ -61,7 +61,9 @@ Out of the box, `docs-curator` enforces a sane default:
 
 ## First-run mode
 
-The first time you run `docs-curator` in a project, it does *not* flood you with findings. It establishes a baseline: only critical violations (strict blacklist matches at root, multi-README clashes, project-type required files missing) are reported. Everything else is accepted as-is. Run `/docs-curator full` when you're ready for a deep audit.
+The first time you run `docs-curator` in a project, it does *not* flood you with findings. It establishes a baseline: only critical violations (strict blacklist matches at root, multi-README clashes, project-type required files missing) are reported. Everything else is accepted as-is and added to `memory.specific`.
+
+**Baseline is sticky.** Once a file is baselined, future audits skip it for *all* rules — even if it later changes. `/docs-curator full` runs every rule but still respects `memory.specific`, so it only deeply audits files added or changed *after* baseline. To force re-evaluation of a baselined file, delete its entry from `.claude/docs-state.json`. To wipe baseline entirely, run `/docs-curator reset`.
 
 ## Risk-tier approval
 
