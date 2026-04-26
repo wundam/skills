@@ -2,7 +2,7 @@
 
 A public [Claude Code](https://docs.claude.com/claude-code) plugin marketplace by [wundam](https://wundam.com).
 
-Each plugin bundles one install-decision worth of related skills, commands, or hooks — things you'd always want together. Currently one plugin (`team-review`), more over time.
+Each plugin bundles one install-decision worth of related skills, commands, or hooks — things you'd always want together. Currently two plugins (`team-review`, `docs-curator`), more over time.
 
 ## Install
 
@@ -45,6 +45,43 @@ On first use in a project the skill runs deep analysis (reads READMEs, manifests
 ```
 
 Full docs: [`plugins/team-review/README.md`](plugins/team-review/README.md) and [`plugins/team-review/skills/team-review/SKILL.md`](plugins/team-review/skills/team-review/SKILL.md).
+
+### `docs-curator` — v0.1.0
+
+Audit, reorganize, freshen, and generate project documentation. A Stop hook with a smart gate fires only when relevant changes occur; a `/docs-curator` slash command runs audits on demand.
+
+**What it does:**
+
+- **Prune** non-standard files (e.g., `NOTES.md`, `TODO.md`, ad-hoc `*-scratch.md`)
+- **Reorganize** duplicates and misplaced docs (move/rename/merge/stub)
+- **Freshen** docs that reference deleted code or grew out of sync
+- **Generate** README/ADR drafts when code exists without documentation
+
+**Risk-tier approval — nothing applied without explicit approval:**
+
+- `low` (move/rename/delete/stub) — batch approval
+- `mid` (merge/generate/rewrite) — per-item diff/preview
+- `high` (consolidate N→1) — per-item plan
+
+**Project-type aware:** detects Claude marketplace, Claude plugin, Node, Python, Rust, Go, generic — applies type-specific expectations (e.g., each plugin in a marketplace must have README + CHANGELOG).
+
+**Lifecycle commands:**
+
+| Command | Purpose |
+|---|---|
+| `/docs-curator` | Standard audit |
+| `/docs-curator full` | Full re-audit, ignore baseline |
+| `/docs-curator init` | Copy policy override template |
+| `/docs-curator state` | Show current state |
+| `/docs-curator reset` | Reset baseline; re-run first-run mode |
+
+**Install:**
+
+```
+/plugin install docs-curator@wundam-skills
+```
+
+Full docs: [`plugins/docs-curator/README.md`](plugins/docs-curator/README.md).
 
 ## How it's organized
 
