@@ -66,6 +66,7 @@ For `/team-review <task>`:
    - **Basic mode:** follow `references/basic-mode.md`. Single LLM, sequential passes, max 5.
    - **Advanced mode:** follow `references/advanced-mode.md`. Parallel subagents per member, multi-round debate, max 5 rounds.
    - Both modes MUST produce a consensus plan. If they fail after 5 passes/rounds, escalate to the user as human moderator.
+   - Convergence requires exactly **one path of action** at every decision point. Mutually-exclusive options presented for the user to choose between are non-convergence — not consensus, not accepted dissent. See `references/basic-mode.md` § Convergence integrity check (or the equivalent in `references/advanced-mode.md`).
 5. **Phase 3 — User approval:** present the consensus plan. User approves / modifies / rejects.
 6. On approval:
    - Write `reviews/<YYYY-MM-DD>-<task-slug>.md` from `templates/review-log.md.tmpl`.
