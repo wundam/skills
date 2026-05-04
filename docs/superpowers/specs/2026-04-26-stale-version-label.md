@@ -3,7 +3,7 @@
 **Status:** Draft, awaiting human review (spec only — no implementation)
 **Date:** 2026-04-26
 **Target:** new rule in `plugins/docs-curator` (skill: `docs-curator`)
-**Source:** v0.1.1 dogfood incident (commit [`ce97771`](../../../../../commit/ce97771))
+**Source:** v0.1.1 dogfood incident (commit [`ce97771`](../../../commit/ce97771))
 
 ---
 
