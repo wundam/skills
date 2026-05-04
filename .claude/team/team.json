@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "project": {
+    "name": "wundam-skills",
+    "summary": "Claude Code plugin marketplace publishing process-oriented skills (team-review, docs-curator). Work product is markdown rules-for-agents.",
+    "analyzed_at": "2026-05-04",
+    "signals": [
+      "bash",
+      "claude-code-plugin",
+      "skills-authoring",
+      "multi-plugin-marketplace",
+      "release-tooling",
+      "keep-a-changelog",
+      "documentation-tooling",
+      "process-design"
+    ]
+  },
+  "members": [
+    { "slug": "pm", "role": "Product Manager", "tier": "core" },
+    { "slug": "architect", "role": "System Architect", "tier": "core" },
+    { "slug": "ux", "role": "Agent-Experience Designer", "tier": "core" },
+    { "slug": "qa", "role": "QA Engineer", "tier": "core" },
+    { "slug": "developer", "role": "Software Developer", "tier": "core" },
+    { "slug": "skill-author", "role": "Skill Author", "tier": "project", "reason": "Every plugin contains skills/<skill>/SKILL.md; work product is rules-for-agents" },
+    { "slug": "agent-protocol-designer", "role": "Agent Protocol Designer", "tier": "project", "reason": "Multi-agent debate/convergence protocols in team-review and docs-curator" },
+    { "slug": "release-engineer", "role": "Release Engineer", "tier": "project", "reason": "scripts/release.sh + scripts/tests/test-release.sh; per-plugin keep-a-changelog discipline" },
+    { "slug": "docs-engineer", "role": "Documentation Engineer", "tier": "project", "reason": "plugins/docs-curator + docs/superpowers/specs|plans; project-doc coherence" },
+    { "slug": "red-team", "role": "Adversarial Reviewer", "tier": "project", "reason": "Work product is rules-for-agents; adversarial loophole-finding is core to skill quality" }
+  ],
+  "last_review_at": "2026-05-04T11:30:00Z",
+  "review_count": 1
+}
