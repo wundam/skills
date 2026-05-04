@@ -90,12 +90,55 @@ A position is **compatible** with another if the two can coexist in a single pla
 2. If some positions conflict but the conflicts are tagged as out-of-scope / acceptable risk → converged with accepted dissent. Stop.
 3. Otherwise → another round.
 
-## Safety cap
+## Convergence integrity check
 
-Maximum 5 rounds. After round 5, if open tensions remain:
+**Run this BEFORE emitting the synthesized plan. If any rule below fires, the team has not converged — route to the [Escalation block](#escalation-block) immediately, regardless of how many rounds have run.**
+
+### Structural rule (primary)
+
+A converged plan describes **exactly one path of action at every decision point**. If the plan asks the user to choose between alternatives, the team has not converged — even if the tripwire below does not fire.
+
+**Compatible** means: positions A and B are compatible iff their proposed actions can both happen in the same executed plan. Mutually-exclusive options are not compatible; they are deferred convergence.
+
+**Accepted dissent** applies only to noted *out-of-scope* concerns where the in-scope action is agreed. It is NOT an escape hatch for in-scope action disputes. If members disagree on what to do for the same scope, that is in-scope — not accepted dissent.
+
+### Tripwire (secondary)
+
+If the synthesized plan contains any of the following, treat as non-converged:
+
+- "(Pick one ...)" / "Pick A or B"
+- "Option A: ... / Option B: ..." presented as alternatives in the same plan section
+- "Decision needed from you" / "Up to you" / "Bundling decision is yours"
+- "Your call" / "Your preference" framed as a choice between options
+- Two distinct courses of action presented for user selection
+
+If any structural condition is met, the team has not converged — even if the tripwire above does not fire. The structural rule is primary; the tripwire is a backup, not a sufficient definition.
+
+### Rationalization counters
+
+| Excuse | Reality |
+|--------|---------|
+| "Both options are in the plan, so they're compatible." | Compatible means both *happen*, not user picks. Two options for selection = deferred convergence. |
+| "Phasing them — A now, B later — both ship." | If both will happen in sequence, say so explicitly as a single ordered plan. If one excludes the other later, it's still deferred convergence. |
+| "I'm not asking the user to pick, I'm asking their preference." | Asking the user to determine an action is choosing. Re-framing the verb does not change the structure. |
+| "It's a scope disagreement, so it's accepted dissent." | If the proposed actions differ for the same scope, it's an in-scope dispute. Accepted dissent is for noted out-of-scope concerns where the in-scope action is agreed. |
+| "The disagreement is small — I'll let the user decide." | Letting the user decide between two member-advocated actions IS non-convergence. Either resolve (continue rounds) or escalate (route to the block below). |
+
+### Red flags — STOP and escalate
+
+- About to write "(Pick one ...)" inside the synthesized plan.
+- About to write "Decision needed from you" at the end of the plan.
+- About to write "Option A: ... / Option B: ..." in the plan body.
+- About to write "Your call" or "Up to you" anywhere in the plan.
+
+**All of these mean: the team has not converged. Do NOT emit the synthesized plan with the choice embedded. Route to the [Escalation block](#escalation-block) instead.**
+
+## Escalation block
+
+Used by both the safety cap (after 5 rounds) and the convergence integrity check (pre-emit, any round). Output:
 
 ```
-Advanced-mode debate did not converge after 5 rounds. Open positions:
+The team has not converged. Open positions:
   - <Role A>: <position>
   - <Role B>: <position>
 
@@ -105,7 +148,17 @@ Pick:
   3. Synthesize (you write the solution).
 ```
 
+The caller adds a one-line preamble to indicate which path triggered it:
+- Safety-cap caller: `Advanced-mode debate did not converge after 5 rounds.`
+- Pre-emit integrity caller: `The plan being drafted contains a deferred-convergence pattern (see Convergence integrity check).`
+
+## Safety cap
+
+Maximum 5 rounds. After round 5, if open tensions remain, emit the [Escalation block](#escalation-block) above with the safety-cap preamble.
+
 ## Synthesis and output
+
+**Before emitting the synthesized plan, run the [Convergence integrity check](#convergence-integrity-check) above. If any rule fires, route to the [Escalation block](#escalation-block) instead.**
 
 On convergence, main Claude synthesizes the agreed plan using the same output template as basic mode (see `references/basic-mode.md`), with `mode: advanced` and `rounds: <N>`. The Debate transcript section has per-round entries with each member's `STILL_AGREES` + `UPDATED_POSITION`.
 
